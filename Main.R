@@ -3,7 +3,7 @@ library(dplyr)
 library(sf)
 library(leaflet)
 library(stringr)
-
+library(gt)
 library(plotly)
 
 
@@ -11,6 +11,8 @@ source("~/work/funathon2024_sujet2/Function/create_data_list.R")
 source("~/work/funathon2024_sujet2/Function/clean_data_frame.R")
 source("~/work/funathon2024_sujet2/Function/import_data.R")
 source("~/work/funathon2024_sujet2/Function/Figures.R")
+source("~/work/funathon2024_sujet2/Function/divers_functions.R")
+source("~/work/funathon2024_sujet2/Function/Table.R")
 
 urls <- create_data_list("sources.yml")
 
@@ -54,16 +56,28 @@ plot_airport_line(pax_apt_all,  liste_aeroports[10])
 ## 4.4. 
 
 YEARS_LIST  <- as.character(2018:2022)
-MONTHS_LIST <- 1:12
+MONTHS_LIST <- as.charcater(1:12)
 
-filter(pax_apt_all, as.numeric(pax_apt_all$mois) == 07 & pax_apt_all$an == "2020")
 
-#1. 
+stats_aeroports <- summary_stat_airport(create_data_from_input(pax_apt_all, 10, "2019"))
 
-create_data_from_input <- function(df, mois, an){
-  df <- filter(df, as.numeric(df$mois) == 07 & df$an == "2020")
-  return(df)
-}
+render_gt(belle_table(stats_aeroports))
+
+## 4.5 
+
+month <- 1
+year <- "2019"
+palette <- c("green", "blue", "red")
+
+trafic_date <- create_data_from_input(pax_apt_all, month, year)
+
+trafic_aeroports <- left_join(airports_location, trafic_date, by = join_by(Code.OACI == apt))
+
+
+
+map_leaflet_airport(pax_apt_all, airports_location, month, year)
+
+# 5 Création de l'application ####
 
 
 
