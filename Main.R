@@ -56,12 +56,12 @@ plot_airport_line(pax_apt_all,  liste_aeroports[10])
 ## 4.4. 
 
 YEARS_LIST  <- as.character(2018:2022)
-MONTHS_LIST <- as.charcater(1:12)
+MONTHS_LIST <- as.character(1:12)
 
 
-stats_aeroports <- summary_stat_airport(create_data_from_input(pax_apt_all, 10, "2019"))
+stats_aeroports <- summary_stat_airport(create_data_from_input(pax_apt_all, 11, "2019"))
 
-render_gt(belle_table(stats_aeroports))
+belle_table(stats_aeroports)
 
 ## 4.5 
 

@@ -1,6 +1,6 @@
 create_data_from_input <- function(df, month, year){
   df <- df %>%
-    filter(df$mois == month & df$an == year)
+    dplyr::filter(mois %in% month & an %in% year)
   return(df)
 }
 
